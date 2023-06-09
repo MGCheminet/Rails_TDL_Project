@@ -1,0 +1,20 @@
+<h1>Nuevo Grupo</h1>
+
+<%= form_with(model: @grupo, url: grupos_path, class: 'grupo-form') do |form| %>
+  <%= form.label :nombre %>
+  <%= form.text_field :nombre %>
+
+  <%= form.label :descripción %>
+  <%= form.text_field :descripcion %>
+
+  <div class="field">
+    <%= form.label :id_usuarios %>
+    <%= form.collection_select :id_usuarios, @usuarios, :id, :nombre, { prompt: 'Seleccionar usuarios' }, { multiple: true } %>
+  </div>
+
+  <div class="actions">
+  <%= form.submit 'Crear Grupo', class: 'btn btn-primary' %>
+  <%= link_to 'Cancelar', root_path, class: 'btn btn-warning' %>
+  </div>
+<% end %>
+

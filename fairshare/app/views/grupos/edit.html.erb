@@ -1,0 +1,31 @@
+<h1>Editar Grupo</h1>
+
+<% if flash[:alert] %>
+  <div class="alert"><%= flash[:alert] %></div>
+<% end %>
+
+
+<%= form_with(model: @grupo, url: grupo_path(@grupo), method: :patch, class: 'grupo-form') do |form| %>
+  <div>
+    <%= form.label :nombre %>
+    <%= form.text_field :nombre %>
+  </div>
+  <div>
+    <%= form.label :descripción %>
+    <%= form.text_field :descripcion %>
+  </div>
+
+  <label>Usuarios:</label>
+  <% @usuarios.each do |usuario| %>
+    <div>
+      <%= check_box_tag 'grupo[usuario_ids][]', usuario.id, @usuarios_grupo.include?(usuario) %>
+      <%= label_tag "grupo_usuario_#{usuario.id}", usuario.nombre %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.submit "Guardar cambios" %>
+    <%= link_to "Cancelar", grupo_path(@grupo) %>
+  </div>
+
+<% end %>

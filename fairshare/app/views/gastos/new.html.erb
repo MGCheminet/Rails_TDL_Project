@@ -1,0 +1,18 @@
+<h2>Agregar Gasto</h2>
+
+<%= form_with(model: [@grupo, @gasto], url: grupo_gastos_path(@grupo)) do |form| %>
+  <div>
+    <%= form.label :monto, "Monto $"  %>
+    <%= form.text_field :monto %>
+  </div>
+  <div>
+    <%= form.label :descripción %>
+    <%= form.text_field :descripcion %>
+  </div>
+  <div>
+    <%= form.label :fecha %>
+    <%= form.date_field :fecha %>
+  </div>
+  <%= form.submit 'Agregar Gasto' %>
+  <%= link_to 'Cancelar', grupos_path, class: 'btn btn-warning' %>
+<% end %>

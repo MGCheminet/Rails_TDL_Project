@@ -1,0 +1,22 @@
+<h1>Editar Usuario</h1>
+<%= form_with(model: @usuario, url: usuario_path(@usuario), method: :patch) do |form| %>
+  <div>
+    <%= form.label :nombre %>
+    <%= form.text_field :nombre %>
+  </div>
+  <div>
+    <%= form.label :email %>
+    <%= form.email_field :email %>
+  </div>
+  <div>
+    <%= form.label :contraseña %>
+    <%= form.password_field :password %>
+  </div>
+  <div>
+    <%= form.label :'Confirmación de Contraseña' %>
+    <%= form.password_field :password_confirmation %>
+  </div>
+
+  <%= form.submit "Actualizar Usuario" %>
+  <%= link_to 'Cancelar', usuarios_path, class: 'btn-cancel' %>
+<% end %>

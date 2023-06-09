@@ -1,0 +1,23 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="<%= index_home_path %>">FairShare</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <div class="dropdown">
+              <button>Perfil</button>
+              <div class="dropdown-options">
+                <a href="<%= perfil_path(cookies.signed[:usuario_id]) %>">Mis datos</a>
+                <a href="gastos_path">Gastos</a>
+                <a href="#">Salir</a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+  </div>
+</nav>
+

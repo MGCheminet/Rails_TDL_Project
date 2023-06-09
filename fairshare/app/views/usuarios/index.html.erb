@@ -1,0 +1,24 @@
+<h1>Lista de Usuarios</h1>
+
+<% if flash[:notice] %>
+    <div class="notice"><%= flash[:notice] %></div>
+<% end %>
+
+<% if flash[:alert] %>
+    <div class="alert"><%= flash[:alert] %></div>
+<% end %>
+
+<ul>
+<% @usuarios.each do |usuario| %>
+  <li><%= usuario.nombre %>
+  <%= link_to 'Agregar gasto', new_gasto_path(usuario), class: 'btn btn-info btn-sm' %>
+  <%= link_to 'Ver detalles', usuario_path(usuario), class: 'btn btn-info btn-sm' %></li>
+  <%= form_with(model: usuario, url: usuario_path(usuario), data: { confirm: "¿Está seguro de que desea eliminar este usuario?" }, method: :delete) do |form| %> 
+    <%= form.submit "Eliminar", class: 'btn btn-danger btn-sm' %> 
+  <% end %>
+
+<% end %>
+</ul>
+
+<%= link_to 'Volver', root_path, class: 'btn btn-dark btn-sm' %>
+

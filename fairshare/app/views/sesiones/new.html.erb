@@ -1,0 +1,56 @@
+<style>
+  .center {
+    text-align: center;
+  }
+
+  .form-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .form-container form {
+    margin-top: 20px;
+    width: 300px;
+  }
+
+  .form-container label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .form-container input[type="email"],
+  .form-container input[type="password"] {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+  }
+
+</style>
+
+<% if flash[:notice] %>
+<div class="alert alert-success text-center"><%= flash[:notice] %></div>
+<% end %>
+
+<% if flash[:alert] %>
+<div class="alert alert-danger text-center"><%= flash[:alert] %></div>
+<% end %>
+
+<div class="center">
+  <h1>Login</h1>
+</div>
+
+<div class="form-container">
+  <%= form_with(url: sesiones_path) do |form| %>
+    <%= form.label :email %>
+    <%= form.email_field :email %>
+
+    <%= form.label :Contraseña %>
+    <%= form.password_field :password %>
+
+    <%= form.submit 'Ingresar', class: 'btn-ok' %>
+    <%= link_to 'Cancelar', root_path, class: 'btn-cancel' %>
+  <% end %>
+</div>
+
+
+

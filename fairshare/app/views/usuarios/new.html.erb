@@ -1,0 +1,87 @@
+
+<% if flash.now[:alert] %>
+  <div class="alert"><%= flash.now[:alert] %></div>
+<% end %>
+
+<div class="error-message">
+  <% if @usuario.errors.any? %>
+    <h4>Error al crear el usuario:</h4>
+    <ul>
+      <% @usuario.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
+
+<style>
+  .center {
+    text-align: center;
+  }
+
+  .form-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .form-container form {
+    width: 300px;
+  }
+
+  .form-container label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .form-container input[type="text"],
+  .form-container input[type="email"],
+  .form-container input[type="password"] {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+  }
+
+  .form-container input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #337ab7;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+  }
+
+</style>
+
+<div class="center">
+<h1>Crear una Nueva Cuenta</h1>
+</div>
+
+<div class="form-container">
+<%= form_with(model: @usuario, url: usuarios_path) do |form| %>
+  <div class="field">
+    <%= form.label :Nombre %>
+    <%= form.text_field :nombre %>
+  </div>
+  <div class="field">
+    <%= form.label :'Correo electrónico' %>
+    <%= form.email_field :email %>
+  </div>
+  <div class="field">
+  <%= form.label :Contraseña %>
+  <%= form.password_field :password %>
+  </div>
+  <div class="field">
+  <%= form.label :'Confirmación de Contraseña' %>
+  <%= form.password_field :password_confirmation %>
+  </div>
+
+  <div class="actions">
+  <%= form.submit "Crear Usuario"%>
+  <%= link_to 'Cancelar', root_path, class: 'btn-cancel' %>
+  </div>
+  
+  <% end %>
+  
+  </div>
