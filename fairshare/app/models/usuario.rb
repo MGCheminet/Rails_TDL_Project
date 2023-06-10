@@ -1,6 +1,5 @@
 class Usuario < ApplicationRecord
   has_secure_password
-  attr_accessor :email
   validates :nombre, presence: true
   validates :email, presence: true, uniqueness: true
   

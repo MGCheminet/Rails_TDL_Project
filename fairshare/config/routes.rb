@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   post 'login', to: 'sesiones#create', as: :sesiones
   delete 'logout', to: 'sesiones#destroy', as: :logout
   get '/home', to: 'home#index', as: :index_home
-  get 'mis_gastos', to: 'usuarios#gastos', as: 'mis_gastos'
+  get 'usuarios/:id/gastos', to: 'gastos#index', as: :mis_gastos
+
   
   
   

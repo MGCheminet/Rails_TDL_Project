@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8 offset-md-2">
-      <h1 class="text-center">Mis Gastos</h1>
+      <h1 class="text-left">Mis Gastos</h1>
 
       <% @gastos.each do |gasto| %>
         <div class="card mb-3">
@@ -19,8 +19,8 @@
         <p class="text-center">No tienes gastos registrados.</p>
       <% end %>
 
-      <div class="text-center">
-        <%= link_to 'Volver', usuario_path(@usuario), class: 'btn btn-secondary' %>
+      <div class="text-left">
+        <%= link_to 'Volver', index_home_path, class: 'btn btn-dark btn-sm' %>
       </div>
     </div>
   </div>

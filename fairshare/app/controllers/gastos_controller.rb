@@ -1,5 +1,10 @@
 class GastosController < ApplicationController
   before_action :set_grupo, only: [:new, :create]
+  
+  def index
+    @gastos = Gasto.where(usuario_id: current_user.id)
+  end
+  
 
   def new
     @gasto = @grupo.gastos.build
