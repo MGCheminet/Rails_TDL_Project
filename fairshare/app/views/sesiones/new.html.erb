@@ -3,6 +3,12 @@
     text-align: center;
   }
 
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .form-container {
     display: flex;
     justify-content: center;
@@ -39,6 +45,7 @@
   <h1>Login</h1>
 </div>
 
+<div class="container">
 <div class="form-container">
   <%= form_with(url: sesiones_path) do |form| %>
     <%= form.label :email %>
@@ -50,6 +57,7 @@
     <%= form.submit 'Ingresar', class: 'btn-ok' %>
     <%= link_to 'Cancelar', root_path, class: 'btn-cancel' %>
   <% end %>
+</div>
 </div>
 
 
