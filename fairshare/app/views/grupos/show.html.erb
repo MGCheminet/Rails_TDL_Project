@@ -31,7 +31,8 @@
               <% end %>
             </tbody>
           </table>
-
+          
+          <%= link_to 'Dividir gastos', dividir_gastos_grupo_path(@grupo), method: :post %>
           <%= link_to 'Volver', grupos_path, class: 'btn btn-dark btn-sm' %>
         </div>
       </div>

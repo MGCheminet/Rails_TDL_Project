@@ -12,6 +12,7 @@ class GruposController < ApplicationController
   
   def create
     @grupo = Grupo.new(grupo_params)
+    @grupo.created_by = current_usuario.id
     if @grupo.save
       usuario_agregar
       @grupo.usuarios << current_user
@@ -50,6 +51,8 @@ class GruposController < ApplicationController
   def gasto_total_usuario(usuario)
     usuario.gastos.sum(:monto)
   end
+
+  
 
   private
 

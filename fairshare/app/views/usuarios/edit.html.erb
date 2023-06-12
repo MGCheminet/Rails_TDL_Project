@@ -27,7 +27,7 @@
           
               <div class="form-actions">
                 <%= form.submit "Actualizar Usuario", class: 'btn-ok' %>
-                <%= link_to 'Cancelar', usuarios_path, class: 'btn-cancel' %>
+                <%= link_to 'Cancelar', perfil_path(cookies.signed[:usuario_id]), class: 'btn-cancel' %>
               </div>
             <% end %>
         </div>

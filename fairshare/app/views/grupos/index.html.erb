@@ -21,9 +21,11 @@
               <div>
               <%= link_to 'Agregar un Nuevo Gasto',  new_grupo_gasto_path(grupo), class: 'btn btn-primary btn-sm me-2' %>
                 <%= link_to 'Ver detalles', grupo_path(grupo), class: 'btn btn-primary btn-sm me-2' %>
-                <%= link_to 'Editar', edit_grupo_path(grupo), class: 'btn btn-primary btn-sm me-2' %>
-                <%= form_with(model: grupo, url: grupo_path(grupo), data: { confirm: "¿Está seguro de que desea eliminar este grupo?" }, method: :delete, class: 'd-inline') do |form| %> 
-                  <%= form.submit "Eliminar", class: 'btn btn-danger btn-sm' %> 
+                <% if grupo.created_by == @current_user.id %>
+                  <%= link_to 'Editar', edit_grupo_path(grupo), class: 'btn btn-primary btn-sm me-2' %>
+                  <%= form_with(model: grupo, url: grupo_path(grupo), data: { confirm: "¿Está seguro de que desea eliminar este grupo?" }, method: :delete, class: 'd-inline') do |form| %> 
+                    <%= form.submit "Eliminar", class: 'btn btn-danger btn-sm' %> 
+                  <% end %>
                 <% end %>
               </div>
             </div>

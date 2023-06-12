@@ -1,0 +1,5 @@
+class RenameDivisionsToDivisiones < ActiveRecord::Migration[7.0]
+  def change
+    rename_table :divisions, :divisiones
+  end
+end

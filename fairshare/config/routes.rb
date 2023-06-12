@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   resources :grupos do
     resources :gastos, only: [:new, :create]  
     post 'agregar_usuarios', on: :member
+    post 'dividir_gastos', on: :member
   end
   
   root 'inicio#index'  # Establece la página de inicio
