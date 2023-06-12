@@ -16,7 +16,7 @@
               <div class="dropdown-menu dropdown-options" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="<%= perfil_path(cookies.signed[:usuario_id]) %>">Mis datos</a>
                 <a class="dropdown-item" href="<%= mis_gastos_path(id: cookies.signed[:usuario_id]) %>">Gastos</a>
-                <a class="dropdown-item" href="#">Salir</a>
+                <a class="dropdown-item" href="<%= logout_path %>" method="delete" rel="nofollow">Salir</a>
               </div>
             </div>
           </li>

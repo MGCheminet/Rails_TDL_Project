@@ -11,6 +11,14 @@ module Fairshare
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
     config.assets.enabled = true
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore, key: '_fairshare_session', expire_after: 1.day, same_site: :lax
+    config.action_dispatch.default_method_redirect = {
+      delete: :destroy,
+      patch: :update,
+      put: :update
+    }
+
 
 
     # Configuration for the application, engines, and railties goes here.

@@ -16,8 +16,8 @@ class SesionesController < ApplicationController
     end
 
     def destroy
-        cookies.delete(:id_usuario)
-        redirect_to root_url, notice: '¡Cierre de sesión exitoso!'
+        cookies.delete(:usuario_id)
+        redirect_to login_path, notice: 'Sesión cerrada.'
     end
 
 end
