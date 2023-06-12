@@ -1,0 +1,29 @@
+<style>
+  .center {
+    text-align: center;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .button-container a {
+    margin: 0 10px;
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #337ab7;
+    color: #fff;
+    border-radius: 5px;
+  }
+</style>
+
+<div class="center">
+  <h1>Los Rubiños FairShare</h1>
+  <p>Elegir una de las siguientes opciones:</p>
+</div>
+
+<div class="button-container">
+  <%= link_to 'Ingresar', login_path %>
+  <%= link_to 'Registrarse', signup_path %>
+</div>

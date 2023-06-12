@@ -1,0 +1,13 @@
+<h1>Editar Usuario</h1>
+<%= form_with(model: @user, url: user_path(@user), method: :patch) do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+  <div>
+    <%= form.label :email %>
+    <%= form.email_field :email %>
+  </div>
+  <!-- Agregar más campos del formulario según tus necesidades -->
+  <%= form.submit "Actualizar Usuario" %>
+<% end %>

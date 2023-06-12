@@ -1,0 +1,13 @@
+<h1>Agregar Usuario al Grupo</h1>
+
+<%= form_with(url: agregar_usuario_path(@grupo), method: :post, class: 'grupo-form') do |form| %>
+  <div class="field">
+    <%= form.label :id, 'Seleccione un usuario:' %>
+    <%= form.collection_select :usuarios, @usuarios, :id, :nombre, { prompt: 'Seleccionar usuarios' }, { multiple: true } %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Agregar Usuario', class: 'btn btn-primary' %>
+    <%= link_to 'Cancelar', grupo_path(@grupo), class: 'btn btn-secondary' %>
+  </div>
+<% end %>

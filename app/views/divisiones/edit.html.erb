@@ -1,0 +1,17 @@
+<h1>Editar Division</h1>
+<%= form_with(model: @user, url: user_path(@user), method: :patch) do |form| %>
+  <div>
+    <%= form.label :monto %>
+    <%= form.monto_field :monto %>
+  </div>
+  <div>
+    <%= form.label :paga %>
+    <%= form.paga_field :paga %>
+  </div>
+  <div>
+    <%= form.label :recibe %>
+    <%= form.recibe_field :recibe %>
+  </div>
+  <!-- Agregar más campos del formulario según tus necesidades -->
+  <%= form.submit "Actualizar Usuario" %>
+<% end %>

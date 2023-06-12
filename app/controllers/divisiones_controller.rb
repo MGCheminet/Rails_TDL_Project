@@ -1,0 +1,2 @@
+class DivisionesController < ApplicationController
+end
