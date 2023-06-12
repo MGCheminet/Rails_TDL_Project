@@ -2,23 +2,21 @@ class GruposController < ApplicationController
   before_action :set_grupo, only: [:show, :edit, :update, :destroy]
 
   def index
-    usuario_id = cookies.signed[:usuario_id]
-    @usuario = Usuario.find(usuario_id)
-    @grupos = @usuario.grupos
+    @grupos = current_user.grupos
   end
 
   def new
     @grupo = Grupo.new
-    @usuarios = Usuario.all
+    @usuarios = Usuario.where.not(id: current_user.id)
   end
-
+  
   def create
     @grupo = Grupo.new(grupo_params)
     if @grupo.save
       usuario_agregar
+      @grupo.usuarios << current_user
       redirect_to @grupo, notice: 'Grupo creado exitosamente.'
     else
-      @usuarios = Usuario.all
       render :new
     end
   end
@@ -28,7 +26,7 @@ class GruposController < ApplicationController
   end
 
   def edit
-    @usuarios = Usuario.all
+    @usuarios = Usuario.where.not(id: current_user.id)
     @usuarios_grupo = @grupo.usuarios
   end
 
@@ -36,7 +34,7 @@ class GruposController < ApplicationController
     if @grupo.update(grupo_params)
       redirect_to @grupo, notice: 'Grupo actualizado exitosamente.'
     else
-      @usuarios = Usuario.all
+      @usuarios = Usuario.where.not(id: current_user.id)
       render :edit
     end
   end
@@ -55,14 +53,15 @@ class GruposController < ApplicationController
 
   private
 
+  def current_user
+    usuario_id = cookies.signed[:usuario_id]
+    @current_user ||= Usuario.find_by(id: usuario_id)
+  end
+
   def set_grupo
     @grupo = Grupo.find(params[:id])
   end
-
-  def grupo_params
-    params.require(:grupo).permit(:nombre, :descripcion)
-  end
-
+  
   def usuario_agregar
     usuario_ids = params[:grupo][:id_usuarios] || []
     
@@ -70,4 +69,9 @@ class GruposController < ApplicationController
       @grupo.grupos_usuarios.find_or_create_by(usuario_id: usuario_id)
     end
   end
+
+  def grupo_params
+    params.require(:grupo).permit(:nombre, :descripcion, id_usuarios: [])
+  end
+
 end

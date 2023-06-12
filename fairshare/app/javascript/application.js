@@ -1,14 +1,14 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-import "@hotwired/turbo-rails"
 import "controllers"
-import "bootstrap/dist/js/bootstrap";
-import "bootstrap/dist/js/bootstrap.bundle";
 
 
-//= require rails
 //= require jquery
-//= require jquery_ujs
+//= require rails
 //= require bootstrap
+//= require rails-ujs
+//= require turbolinks
+//= require_tree .
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
 
 
 
