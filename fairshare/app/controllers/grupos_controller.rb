@@ -1,5 +1,6 @@
 class GruposController < ApplicationController
   before_action :set_grupo, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   def index
     @grupos = current_user.grupos
@@ -76,3 +77,4 @@ class GruposController < ApplicationController
   end
 
 end
+
