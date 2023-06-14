@@ -58,4 +58,11 @@ class UsuariosController < ApplicationController
   def usuario_params
     params.require(:usuario).permit(:nombre, :email, :password, :password_confirmation)
   end
+
+  if current_user && current_user.admin?
+    # Only admins can access this action
+    @usuarios = Usuario.all
+  else
+    redirect_to root_path, alert: "No tenes permisos para acceder a esta página."
+  end
 end

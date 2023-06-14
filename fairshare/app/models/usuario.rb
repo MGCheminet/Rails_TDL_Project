@@ -12,4 +12,9 @@ class Usuario < ApplicationRecord
     gastos.where(grupo_id: grupo.id).sum(:monto)
   end
   
+  def admin?
+    admin # Assuming `admin` is a boolean attribute in the User model
+  end
+
+  
 end

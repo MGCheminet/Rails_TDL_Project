@@ -3,17 +3,12 @@ Rails.application.routes.draw do
   
   post '/grupos/:id/agregar_usuario', to: 'grupos#agregar_usuario', as: :agregar_usuario
   
-  
   get 'signup', to: 'usuarios#new'
   get 'login', to: 'sesiones#new', as: :login
   get 'logout', to: 'sesiones#destroy', as: :logout
   # post 'login', to: 'sesiones#create', as: :sesiones
   get '/home', to: 'home#index', as: :index_home
   get 'usuarios/:id/gastos', to: 'gastos#index', as: :mis_gastos
-  
-
-
-
   
   
   resources :usuarios do
@@ -30,7 +25,6 @@ Rails.application.routes.draw do
   
   resources :sesiones, only: [:new, :create]
 
-   
 
   resources :grupos do
     resources :gastos, only: [:new, :create]  
