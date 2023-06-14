@@ -1,22 +1,41 @@
-<h1>Editar Usuario</h1>
-<%= form_with(model: @usuario, url: usuario_path(@usuario), method: :patch) do |form| %>
-  <div>
-    <%= form.label :nombre %>
-    <%= form.text_field :nombre %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title">Editar Usuario</h1>
+            <% if flash[:alert] %>
+              <div class="alert alert-danger text-center"><%= flash[:alert] %></div>
+            <% end %>
+            <%= form_with(model: @usuario, url: usuario_path(@usuario), method: :patch, class: 'edit-user-form') do |form| %>
+              <div class="form-group">
+                <%= form.label :nombre, class: 'form-label' %>
+                <%= form.text_field :nombre, class: 'form-control' %>
+              </div>
+              <div class="form-group">
+                <%= form.label :email, class: 'form-label' %>
+                <p class="form-control-plaintext"><%= @usuario.email %></p>
+              </div>
+              <div class="form-group">
+                <%= form.label :contraseña, class: 'form-label' %>
+                <%= form.password_field :password, class: 'form-control' %>
+              </div>
+              <div class="form-group">
+                <%= form.label :'Confirmación de Contraseña', class: 'form-label' %>
+                <%= form.password_field :password_confirmation, class: 'form-control' %>
+              </div>
+          
+              <div class="form-actions">
+                <%= form.submit "Actualizar Usuario", class: 'btn-ok' %>
+                <%= link_to 'Cancelar', perfil_path(cookies.signed[:usuario_id]), class: 'btn-cancel' %>
+              </div>
+            <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-  <div>
-    <%= form.label :email %>
-    <%= form.email_field :email %>
-  </div>
-  <div>
-    <%= form.label :contraseña %>
-    <%= form.password_field :password %>
-  </div>
-  <div>
-    <%= form.label :'Confirmación de Contraseña' %>
-    <%= form.password_field :password_confirmation %>
-  </div>
+</div>
 
-  <%= form.submit "Actualizar Usuario" %>
-  <%= link_to 'Cancelar', usuarios_path, class: 'btn-cancel' %>
-<% end %>
+
+
+

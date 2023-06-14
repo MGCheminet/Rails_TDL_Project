@@ -1,5 +1,5 @@
-<% if flash.now[:alert] %>
-  <div class="alert"><%= flash.now[:alert] %></div>
+<% if flash[:alert] %>
+<div class="alert alert-danger text-center"><%= flash[:alert] %></div>
 <% end %>
 
 <style>
@@ -44,7 +44,7 @@
 </style>
 
 <div class="center">
-  <h1>Crear una Nueva Cuenta</h1>
+  <h1>Crear una nueva cuenta</h1>
 </div>
 
 <div class="container">
@@ -68,7 +68,7 @@
       </div>
 
       <div class="actions">
-        <%= form.submit "Crear Usuario"%>
+        <%= form.submit "Registrarse"%>
         <%= link_to 'Cancelar', root_path, class: 'btn-cancel' %>
       </div>
     <% end %>

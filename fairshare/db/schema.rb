@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_12_210246) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_12_181414) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "divisions", force: :cascade do |t|
+  create_table "divisiones", force: :cascade do |t|
     t.float "monto"
     t.string "paga"
     t.string "recibe"
@@ -38,6 +38,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_12_210246) do
     t.string "descripcion"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "created_by"
   end
 
   create_table "grupos_usuarios", force: :cascade do |t|
@@ -60,7 +61,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_12_210246) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
-    t.boolean "admin", default: false
   end
 
   add_foreign_key "gastos", "grupos"

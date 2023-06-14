@@ -36,9 +36,10 @@ class UsuariosController < ApplicationController
 
   def update
     if @usuario.update(usuario_params)
-      flash[:notice] = 'Modificación de usuario exitosa.'
+      flash[:notice] = 'Datos modificados.'
       redirect_to @usuario
     else
+      flash[:alert] = 'Las contraseñas no son idénticas.'
       render :edit
     end
   end
