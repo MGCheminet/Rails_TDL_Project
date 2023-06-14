@@ -81,3 +81,7 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+#Para permitir permisos de administrador
+gem 'cancancan'
+
