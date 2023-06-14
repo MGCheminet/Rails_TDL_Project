@@ -3,9 +3,10 @@
     <h1>Bienvenides a FairShare</h1>
   </div>
 
-<% if current_user && current_user.admin? %>
+
+<% if current_user.admin? %>
    <div class="center">
-    <h1>Bienvenido, usuario administrador</h1>
+    <h2>Bienvenido, usuario administrador</h2>
   </div>
     <div class="dashboard-container">
     <%= link_to 'Crear Nuevo Grupo', new_grupo_path, class: 'btn btn btn-primary' %>
