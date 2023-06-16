@@ -1,13 +1,27 @@
 <body>
   <div class="center">
-    <h1>Bienvenidos a FairShare</h1>
+    <h1>Bienvenides a FairShare</h1>
   </div>
 
+
+<% if current_user && current_user.admin? %>
+   <div class="center">
+    <h2>Bienvenido, usuario administrador</h2>
+  </div>
+    <div class="dashboard-container">
+    <%= link_to 'Crear Nuevo Grupo', new_grupo_path, class: 'btn btn btn-primary' %>
+    <%= link_to 'Ver grupos', grupos_path, class: 'btn btn btn-primary' %>
+    <%= link_to 'Agregar Nuevo Usuario', new_usuario_path, class: 'btn btn btn-primary' %>
+    <%= link_to 'Ver usuarios', usuarios_path, class: 'btn btn btn-primary' %>
+  </div>
+
+<% else %>
   <div class="dashboard-container">
-    <%= link_to 'Crear un Nuevo Grupo', new_grupo_path %>
+    <%= link_to 'Crear Nuevo Grupo', new_grupo_path %>
     <%= link_to 'Mis Grupos', grupos_path %>
   </div>
-
+<% end %>
   <%= javascript_include_tag 'https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js' %>
 </body>
 </html>
+

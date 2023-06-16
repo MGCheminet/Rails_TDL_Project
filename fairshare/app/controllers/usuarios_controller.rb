@@ -44,9 +44,16 @@ class UsuariosController < ApplicationController
     end
   end
 
+  #def destroy
+  #  @usuario.destroy
+  #  redirect_to usuarios_url, notice: 'Usuario eliminado exitosamente.'
+  #end
+
   def destroy
+    @usuario = Usuario.find(params[:id])
     @usuario.destroy
-    redirect_to usuarios_url, notice: 'Usuario eliminado exitosamente.'
+    flash[:notice] = 'Usuario eliminado correctamente.'
+    redirect_to usuarios_path
   end
 
   private
@@ -57,5 +64,13 @@ class UsuariosController < ApplicationController
 
   def usuario_params
     params.require(:usuario).permit(:nombre, :email, :password, :password_confirmation)
+  end
+
+  def delete_self
+    @usuario = current_user
+    @usuario.destroy
+    session[:usuario_id] = nil
+    flash[:notice] = 'Tu cuenta ha sido eliminada correctamente.'
+    redirect_to root_path
   end
 end

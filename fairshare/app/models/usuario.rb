@@ -1,4 +1,5 @@
 class Usuario < ApplicationRecord
+  acts_as_paranoid
   has_secure_password
   validates :nombre, presence: true
   validates :email, presence: true, uniqueness: true
@@ -11,5 +12,10 @@ class Usuario < ApplicationRecord
   def gasto_total_en_grupo(grupo)
     gastos.where(grupo_id: grupo.id).sum(:monto)
   end
+  
+  def admin?
+    admin # Assuming `admin` is a boolean attribute in the User model
+  end
+
   
 end
