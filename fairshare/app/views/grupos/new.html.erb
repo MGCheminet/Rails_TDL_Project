@@ -16,9 +16,15 @@
               <%= form.text_field :descripcion, class: 'form-control' %>
             </div>
 
+
             <div class="form-group">
-              <%= form.label :id_usuarios, "Agregar contactos" %>
-              <%= form.collection_select :id_usuarios, @usuarios, :id, :nombre, { prompt: '-' }, { multiple: true, class: 'form-control' } %>
+              <%= form.label :usuarios, "Agregar contactos" %>
+              <% @usuarios.where.not(admin: true).each do |usuario| %>
+                <div class="form-check">
+                  <%= check_box_tag 'grupo[usuarios][]', usuario.id, false, id: "usuario_#{usuario.id}", class: 'form-check-input' %>
+                  <%= form.label "usuario_#{usuario.id}", usuario.nombre, class: 'form-check-label' %>
+                </div>
+              <% end %>
             </div>
 
 

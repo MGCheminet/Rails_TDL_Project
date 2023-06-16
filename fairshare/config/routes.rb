@@ -13,6 +13,9 @@ Rails.application.routes.draw do
   
   resources :usuarios do
     resources :gastos, only: [:create]
+    member do
+      delete :delete_self
+    end
   end
 
   get '/usuarios/:id', to: 'usuarios#show', as: :perfil

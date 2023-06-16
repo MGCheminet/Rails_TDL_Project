@@ -4,7 +4,7 @@
   </div>
 
 
-<% if current_user.admin? %>
+<% if current_user && current_user.admin? %>
    <div class="center">
     <h2>Bienvenido, usuario administrador</h2>
   </div>

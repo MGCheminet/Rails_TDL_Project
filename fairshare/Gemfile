@@ -85,3 +85,5 @@ end
 #Para permitir permisos de administrador
 gem 'cancancan'
 
+#Para soft delete -> acts_as_paranoid
+gem 'acts_as_paranoid'

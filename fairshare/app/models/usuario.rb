@@ -1,4 +1,5 @@
 class Usuario < ApplicationRecord
+  acts_as_paranoid
   has_secure_password
   validates :nombre, presence: true
   validates :email, presence: true, uniqueness: true
