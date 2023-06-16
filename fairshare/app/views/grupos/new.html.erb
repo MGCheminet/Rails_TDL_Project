@@ -21,7 +21,7 @@
               <%= form.label :usuarios, "Agregar contactos" %>
               <% @usuarios.where.not(admin: true).each do |usuario| %>
                 <div class="form-check">
-                  <%= check_box_tag 'grupo[usuarios][]', usuario.id, false, id: "usuario_#{usuario.id}", class: 'form-check-input' %>
+                  <%= check_box_tag 'grupo[id_usuarios][]', usuario.id, false, id: "usuario_#{usuario.id}", class: 'form-check-input' %>
                   <%= form.label "usuario_#{usuario.id}", usuario.nombre, class: 'form-check-label' %>
                 </div>
               <% end %>

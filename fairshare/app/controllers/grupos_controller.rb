@@ -11,21 +11,43 @@ class GruposController < ApplicationController
     @usuarios = Usuario.where.not(id: current_user.id)
   end
   
+
+#  def create
+#    @grupo = Grupo.new(grupo_params)
+#    @grupo.created_by = current_user.id
+#  
+#    if @grupo.save
+#      @grupo.usuarios << current_user 
+#      flash[:notice] = 'Grupo creado exitosamente.'
+#      redirect_to grupos_path
+#    else
+#      flash.now[:alert] = 'Error al crear el grupo.'
+#      render :new
+#    end
+#  end
+
   def create
     @grupo = Grupo.new(grupo_params)
     @grupo.created_by = current_user.id
+
     if @grupo.save
-      usuario_agregar
-      @grupo.usuarios << current_user
-      redirect_to @grupo, notice: 'Grupo creado exitosamente.'
+      usuario_ids = params[:grupo][:id_usuarios] || []
+      usuario_ids << current_user.id
+      @grupo.usuarios << Usuario.find(usuario_ids)
+      
+      flash[:notice] = 'Grupo creado exitosamente.'
+      redirect_to grupos_path
     else
+      flash.now[:alert] = 'Error al crear el grupo.'
       render :new
     end
   end
 
   def show
+    @grupo = Grupo.find(params[:id])
     @usuarios_grupo = @grupo.usuarios
   end
+  
 
   def edit
     @usuarios = Usuario.where.not(id: current_user.id)
@@ -63,14 +85,16 @@ class GruposController < ApplicationController
   def set_grupo
     @grupo = Grupo.find(params[:id])
   end
-  
+  x
+
   def usuario_agregar
     usuario_ids = params[:grupo][:id_usuarios] || []
-    
     usuario_ids.each do |usuario_id|
-      @grupo.grupos_usuarios.find_or_create_by(usuario_id: usuario_id)
+      @grupo.usuarios << Usuario.find(usuario_id)
     end
+    redirect_to @grupo, notice: 'Usuarios agregados al grupo exitosamente.'
   end
+  
 
   def grupo_params
     params.require(:grupo).permit(:nombre, :descripcion, id_usuarios: [])
