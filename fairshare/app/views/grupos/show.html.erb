@@ -24,10 +24,15 @@
                 </tr>
               <% end %>
             </tbody>
-          </table>
+            
+            </table>
+            <p><strong>Gastos totales:</strong> $<%= @grupo.gastos.sum(:monto) %></p>
           
-          <%= link_to 'Dividir gastos', dividir_gastos_grupo_path(@grupo), method: :post %>
-          <%= link_to 'Volver', grupos_path, class: 'btn btn-dark btn-sm' %>
+            <div class="form-actions">
+            <%= link_to 'Dividir gastos', dividir_gastos_grupo_path(@grupo), method: :post, class: 'btn btn-primary btn-sm' %>
+            <%= link_to 'Volver', grupos_path, class: 'btn btn-dark btn-sm' %>
+            </div>
+          </div>
         </div>
       </div>
     </div>
