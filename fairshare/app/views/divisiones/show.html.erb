@@ -1,4 +1,39 @@
-<h1>Detalles del Usuario</h1>
-<p>Nombre: <%= @user.name %></p>
-<p>Email: <%= @user.email %></p>
-<!-- Mostrar más detalles del usuario -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h1 class="card-title">Divisiones de Gastos</h1>
+
+          <p><strong>Nombre:</strong> <%= @grupo.nombre %></p>
+
+          <h2>Integrantes:</h2>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Debe</th>
+                <th>Recibe</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @usuarios_grupo.each do |usuario| %>
+                <tr>
+                  <td><%= usuario.nombre %></td>
+                  <td>$ <%= @debe_recibe[usuario.id][:debe] %></td>
+                  <td>$ <%= @debe_recibe[usuario.id][:recibe] %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          
+          <p><strong>Gastos totales:</strong> $<%= @grupo.gastos.sum(:monto) %></p>
+          
+          <div class="form-actions">
+            <%= link_to 'Volver', grupos_path, class: 'btn btn-dark btn-sm' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
