@@ -64,7 +64,7 @@ class GruposController < ApplicationController
   end
 
   def destroy
-    if @grupo.destroy
+    if @grupo.gastos.destroy_all && @grupo.destroy      
       redirect_to grupos_path, notice: 'Grupo eliminado exitosamente.'
     else
       redirect_to @grupo, alert: 'El grupo no pudo ser eliminado.'
@@ -85,7 +85,7 @@ class GruposController < ApplicationController
   def set_grupo
     @grupo = Grupo.find(params[:id])
   end
-  x
+  
 
   def usuario_agregar
     usuario_ids = params[:grupo][:id_usuarios] || []

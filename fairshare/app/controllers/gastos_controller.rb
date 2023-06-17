@@ -23,6 +23,13 @@ class GastosController < ApplicationController
     end
   end
 
+  def destroy
+    @gasto = Gasto.find(params[:id])
+    @gasto.destroy
+    redirect_to mis_gastos_path(id: cookies.signed[:usuario_id]), notice: 'Gasto eliminado.'
+  end
+    
+
   private
 
   def set_grupo
