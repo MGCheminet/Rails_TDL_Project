@@ -15,14 +15,19 @@
       <%= form.text_field :descripcion, class: 'form-control' %>
     </div>
 
+
     <div class="field">
       <%= form.label :id_usuarios, "Integrantes", class: 'form-label' %>
-      <select name="grupo[id_usuarios][]" multiple class="form-control", size="10">
-        <% @usuarios.each do |usuario| %>
-          <option value="<%= usuario.id %>" <%= 'selected' if @usuarios_grupo.include?(usuario) %>><%= usuario.nombre %></option>
+      <% @usuarios.each do |usuario| %>
+        <% unless usuario.admin? %>
+          <div class="form-check">
+            <%= check_box_tag 'grupo[id_usuarios][]', usuario.id, @usuarios_grupo.include?(usuario), id: "usuario_#{usuario.id}", class: 'form-check-input' %>
+            <%= form.label "usuario_#{usuario.id}", usuario.nombre, class: 'form-check-label' %>
+          </div>
         <% end %>
-      </select>
+      <% end %>
     </div>
+
 
     <div class="form-actions">
       <%= form.submit "Guardar cambios", class: 'btn btn-primary' %>
