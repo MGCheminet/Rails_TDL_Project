@@ -33,7 +33,10 @@ class GruposController < ApplicationController
     if @grupo.save
       usuario_ids = params[:grupo][:id_usuarios] || []
       usuario_ids << current_user.id
-      @grupo.usuarios << Usuario.find(usuario_ids)
+
+      valid_usuario_ids = usuario_ids.compact.select { |id| Usuario.exists?(id) }
+      @grupo.usuarios << Usuario.find(valid_usuario_ids)     
+      #@grupo.usuarios << Usuario.find(usuario_ids)
       
       flash[:notice] = 'Grupo creado exitosamente.'
       redirect_to grupos_path
