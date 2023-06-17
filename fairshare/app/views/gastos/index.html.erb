@@ -7,7 +7,10 @@
         <div class="card mb-3">
           <div class="card-body">
           <div class="d-flex justify-content-between align-items-center">
+          <div>
             <h5 class="card-title">Monto: $<%= gasto.monto %></h5>
+            <strong>Grupo:</strong> <%= gasto.grupo.nombre %>
+          </div>
             <p class="card-text">
             <strong>Descripción:</strong> <%= gasto.descripcion %><br>
             <strong>Fecha:</strong> <%= gasto.fecha %>
