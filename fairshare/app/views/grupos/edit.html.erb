@@ -15,23 +15,15 @@
       <%= form.text_field :descripcion, class: 'form-control' %>
     </div>
 
-    <% if current_user.admin? %>
-      <div class="form-group">
-        <%= form.label :id_usuario_creador, "Creador del Grupo", class: 'form-label' %>
-        <%= form.collection_select :id_usuario_creador, @grupo.usuarios, :id, :nombre, { include_blank: true }, class: 'form-control' %>
-      </div>
-    <% else %>
-      <%= form.hidden_field :id_usuario_creador, value: @grupo.id_usuario_creador %>
-    <% end %>
-
-    <div class="field">
-      <%= form.label :id_usuarios, "Integrantes", class: 'form-label' %>
-      <% @usuarios.each do |usuario| %>
-        <% unless usuario.admin? %>
-          <div class="form-check">
-            <%= check_box_tag 'grupo[id_usuarios][]', usuario.id, @usuarios_grupo.include?(usuario), id: "usuario_#{usuario.id}", class: 'form-check-input' %>
-            <%= form.label "usuario_#{usuario.id}", usuario.nombre, class: 'form-check-label' %>
-          </div>
+      <% if current_user.admin? %>
+        <div class="form-group">
+          <%= form.label :usuarios, "Usuarios del Grupo", class: 'form-label' %>
+          <%= form.collection_select :usuario_ids, Usuario.all, :id, :nombre, { include_blank: true }, { multiple: true, class: 'form-control' } %>
+        </div>
+      <% else %>
+        <p>Usuarios del Grupo:</p>
+        <% @grupo.usuarios.each do |usuario| %>
+          <p><%= usuario.nombre %></p>
         <% end %>
       <% end %>
     </div>
