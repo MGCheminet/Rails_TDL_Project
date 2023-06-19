@@ -3,7 +3,12 @@ class GruposController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @grupos = current_user.grupos
+    #@grupos = current_user.grupos
+    if current_user
+      @grupos = current_user.grupos
+    else
+      redirect_to login_path, alert: 'Debes iniciar sesión para ver los grupos.'
+    end
   end
 
   def new
