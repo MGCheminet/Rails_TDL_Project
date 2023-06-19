@@ -78,15 +78,31 @@ class GruposController < ApplicationController
     @grupo.usuarios << current_user
   end
   
-  
-  
-  
+  def admin_grupos
+    @grupos = Grupo.all
+  end
     
+  #def destroy
+    #if @grupo.gastos.destroy_all && @grupo.destroy      
+      #redirect_to grupos_path, notice: 'Grupo eliminado exitosamente.'
+    #else
+      #redirect_to @grupo, alert: 'El grupo no pudo ser eliminado.'
+    #end
+  #end
+
   def destroy
-    if @grupo.gastos.destroy_all && @grupo.destroy      
-      redirect_to grupos_path, notice: 'Grupo eliminado exitosamente.'
+    @grupo = Grupo.find(params[:id])
+    if admin_user? || grupo_creator?
+      @grupo.destroy
+      flash[:notice] = 'Grupo eliminado correctamente.'
+      if admin_user?
+        redirect_to admin_grupos_grupos_path # Redirect to the admin grupos page
+      else
+        redirect_to grupos_path, notice: 'Grupo eliminado exitosamente.'
+      end
     else
-      redirect_to @grupo, alert: 'El grupo no pudo ser eliminado.'
+      flash[:alert] = 'No tienes permiso para eliminar este grupo.'
+      redirect_to grupos_path # Redirect to a different path for non-admin and non-creator users
     end
   end
 
@@ -99,6 +115,14 @@ class GruposController < ApplicationController
   def current_user
     usuario_id = cookies.signed[:usuario_id]
     @current_user ||= Usuario.find_by(id: usuario_id)
+  end
+
+  def admin_user?
+    current_user.admin?
+  end
+
+  def grupo_creator?
+    @grupo.creator == current_user
   end
 
   def set_grupo

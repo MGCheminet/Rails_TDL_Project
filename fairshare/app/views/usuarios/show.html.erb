@@ -4,9 +4,6 @@
       <div class="card">
         <div class="card-body">
           <h2 class="card-title">Mis Datos</h2>
-          <% if flash[:notice] %>
-            <div class="alert alert-success text-center"><%= flash[:notice] %></div>
-          <% end %>
           <p><strong>Email:</strong> <%= @usuario.email %></p>
           <p><strong>Nombre:</strong> <%= @usuario.nombre %></p>
           
@@ -17,3 +14,5 @@
     </div>
   </div>
 </div>
+
+ <%= render 'layouts/messages' %>

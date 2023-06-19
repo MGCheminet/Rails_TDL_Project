@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_15_223248) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_19_020658) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -63,6 +63,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_15_223248) do
     t.string "password_digest"
     t.boolean "admin", default: false
     t.datetime "deleted_at"
+    t.boolean "blocked"
     t.index ["deleted_at"], name: "index_usuarios_on_deleted_at"
   end
 

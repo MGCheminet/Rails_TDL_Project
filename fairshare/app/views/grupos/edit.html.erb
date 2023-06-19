@@ -15,6 +15,14 @@
       <%= form.text_field :descripcion, class: 'form-control' %>
     </div>
 
+    <% if current_user.admin? %>
+      <div class="form-group">
+        <%= form.label :id_usuario_creador, "Creador del Grupo", class: 'form-label' %>
+        <%= form.collection_select :id_usuario_creador, @grupo.usuarios, :id, :nombre, { include_blank: true }, class: 'form-control' %>
+      </div>
+    <% else %>
+      <%= form.hidden_field :id_usuario_creador, value: @grupo.id_usuario_creador %>
+    <% end %>
 
     <div class="field">
       <%= form.label :id_usuarios, "Integrantes", class: 'form-label' %>
@@ -28,12 +36,16 @@
       <% end %>
     </div>
 
-
     <div class="form-actions">
       <%= form.submit "Guardar cambios", class: 'btn btn-primary' %>
-      <%= link_to "Cancelar", grupos_path, class: 'btn btn-dark' %>
+      <% if current_user.admin? %>
+        <%= link_to "Cancelar", admin_grupos_grupos_path, class: 'btn btn-dark' %>
+      <% else %>
+        <%= link_to "Cancelar", grupos_path, class: 'btn btn-dark' %>
+      <% end %>
     </div>
   <% end %>
 </div>
+
 
 

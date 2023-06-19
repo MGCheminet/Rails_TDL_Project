@@ -1,26 +1,32 @@
 <h1>Lista de Usuarios</h1>
 
-<% if flash[:notice] %>
-    <div class="notice"><%= flash[:notice] %></div>
-<% end %>
-
-<% if flash[:alert] %>
-    <div class="alert"><%= flash[:alert] %></div>
-<% end %>
-
-
-<ul>
-<% @usuarios.each do |usuario| %>
-  <% unless usuario.deleted? %> 
-    <li><%= usuario.nombre %>
-  <%= link_to 'Agregar gasto', new_gasto_path(usuario), class: 'btn btn-info btn-sm' %>
-  <%= link_to 'Ver detalles', usuario_path(usuario), class: 'btn btn-info btn-sm' %></li>
-  <%= form_with(model: usuario, url: usuario_path(usuario), data: { confirm: "¿Está seguro de que desea eliminar este usuario?" }, method: :delete) do |form| %> 
-    <%= form.submit "Eliminar", class: 'btn btn-danger btn-sm' %> 
+<ul class="list-group">
+  <% @usuarios.each do |usuario| %>
+    <% unless usuario.deleted? || usuario.admin? %>
+      <li class="list-group-item">
+        <%= usuario.nombre %>
+        <div class="btn-group float-right" role="group" aria-label="Acciones">
+          <% if usuario.blocked? %>
+            <%= form_with(model: usuario, url: unblock_usuario_path(usuario), method: :put, data: { confirm: "¿Está seguro de que desea desbloquear este usuario?" }) do |form| %>
+              <%= form.button "Desbloquear", class: 'btn btn-success btn-sm' %>
+            <% end %>
+          <% else %>
+            <%= form_with(model: usuario, url: block_usuario_path(usuario), method: :put, data: { confirm: "¿Está seguro de que desea bloquear este usuario?" }) do |form| %>
+              <%= form.button "Bloquear", class: 'btn btn-warning btn-sm' %>
+            <% end %>
+          <% end %>
+          <%= link_to 'Ver detalles', usuario_path(usuario), class: 'btn btn-primary btn-sm' %>
+          <%= form_with(model: usuario, url: usuario_path(usuario), data: { confirm: "¿Está seguro de que desea eliminar este usuario?" }, method: :delete) do |form| %>
+            <%= form.submit "Eliminar", class: 'btn btn-danger btn-sm' %>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
   <% end %>
-  <% end %>
-<% end %>
 </ul>
 
-<%= link_to 'Volver', root_path, class: 'btn btn-dark btn-sm' %>
+<%= link_to 'Volver', index_home_path, class: 'btn btn-dark btn-sm mt-3' %>
+
+
+
 
