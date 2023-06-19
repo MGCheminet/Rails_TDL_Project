@@ -1,7 +1,9 @@
 class UsuariosController < ApplicationController
   # Se utiliza el callback before_action para configurar el método set_usuario, el cual se ejecuta antes 
   # de las acciones show, edit, update y destroy para buscar y configurar el objeto @usuario correspondiente
+  protect_from_forgery with: :null_session
   before_action :set_usuario, only: [:show, :edit, :update, :destroy]
+  
 
   def index
     @usuarios = Usuario.all
@@ -44,18 +46,44 @@ class UsuariosController < ApplicationController
     end
   end
 
-  #def destroy
-  #  @usuario.destroy
-  #  redirect_to usuarios_url, notice: 'Usuario eliminado exitosamente.'
-  #end
 
   def destroy
     @usuario = Usuario.find(params[:id])
-    @usuario.destroy
-    flash[:notice] = 'Usuario eliminado correctamente.'
-    redirect_to usuarios_path
+    if @usuario.admin?
+      #flash[:alert] = 'No se puede eliminar al usuario administrador.'
+      redirect_to index_home_url, notice: 'No se puede eliminar al usuario administrador.'
+    else
+      @usuario.destroy
+      if admin_user?
+        #flash[:notice] = 'Usuario eliminado correctamente.'
+        redirect_to usuarios_path, notice: 'Usuario eliminado correctamente.'
+      else
+        session[:usuario_id] = nil
+        #flash[:notice] = 'Tu cuenta ha sido eliminada correctamente.'
+        redirect_to root_url, notice: 'Tu cuenta ha sido eliminada correctamente.'
+      end
+    end
   end
 
+
+
+  def delete_self
+    @usuario = current_user
+    @usuario.destroy
+  end
+
+  def block_usuario
+    @usuario = Usuario.find(params[:id])
+    @usuario.update(blocked: true)
+    redirect_to usuarios_path, notice: "Usuario bloqueado correctamente."
+  end
+
+  def unblock_usuario
+    @usuario = Usuario.find(params[:id])
+    @usuario.update(blocked: false)
+    redirect_to usuarios_path, notice: "Usuario desbloqueado correctamente."
+  end
+  
   private
 
   def set_usuario
@@ -66,11 +94,8 @@ class UsuariosController < ApplicationController
     params.require(:usuario).permit(:nombre, :email, :password, :password_confirmation)
   end
 
-  def delete_self
-    @usuario = current_user
-    @usuario.destroy
-    session[:usuario_id] = nil
-    flash[:notice] = 'Tu cuenta ha sido eliminada correctamente.'
-    redirect_to root_path
+  def admin_user?
+    current_user && current_user.admin?
   end
+
 end

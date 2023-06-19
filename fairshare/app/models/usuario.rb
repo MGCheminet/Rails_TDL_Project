@@ -17,5 +17,8 @@ class Usuario < ApplicationRecord
     admin # Assuming `admin` is a boolean attribute in the User model
   end
 
+  def blocked?
+    blocked
+  end
   
 end
