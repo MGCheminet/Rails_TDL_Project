@@ -15,16 +15,13 @@
       <%= form.text_field :descripcion, class: 'form-control' %>
     </div>
 
-      <% if current_user.admin? %>
-        <div class="form-group">
-          <%= form.label :usuarios, "Usuarios del Grupo", class: 'form-label' %>
-          <%= form.collection_select :usuario_ids, Usuario.all, :id, :nombre, { include_blank: true }, { multiple: true, class: 'form-control' } %>
+    <div class="form-group">
+      <%= form.label :usuarios, "Usuarios del Grupo", class: 'form-label' %>
+      <% Usuario.all.each do |usuario| %>
+        <div class="form-check">
+          <%= check_box_tag 'grupo[usuario_ids][]', usuario.id, @grupo.usuarios.include?(usuario), class: 'form-check-input' %>
+          <%= label_tag "grupo_usuario_ids_#{usuario.id}", usuario.nombre, class: 'form-check-label' %>
         </div>
-      <% else %>
-        <p>Usuarios del Grupo:</p>
-        <% @grupo.usuarios.each do |usuario| %>
-          <p><%= usuario.nombre %></p>
-        <% end %>
       <% end %>
     </div>
 
@@ -38,6 +35,9 @@
     </div>
   <% end %>
 </div>
+
+
+
 
 
 

@@ -130,6 +130,11 @@ class GruposController < ApplicationController
     @grupo.creator == current_user
   end
 
+  def grupo_creator?
+    @grupo.created_by == current_user.id
+  end
+  
+
   def set_grupo
     @grupo = Grupo.find(params[:id])
   end

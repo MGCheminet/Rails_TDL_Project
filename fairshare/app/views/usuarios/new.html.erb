@@ -69,7 +69,11 @@
 
       <div class="actions">
         <%= form.submit "Registrarse"%>
-        <%= link_to 'Cancelar', root_path, class: 'btn-cancel' %>
+        <% if current_user&.admin? %>
+          <%= link_to 'Cancelar', index_home_path, class: 'btn-cancel' %>
+        <% else %>
+          <%= link_to 'Cancelar', root_path, class: 'btn-cancel' %>
+        <% end %>
       </div>
     <% end %>
   </div>
