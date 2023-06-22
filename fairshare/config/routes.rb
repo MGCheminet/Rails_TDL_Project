@@ -33,11 +33,16 @@ Rails.application.routes.draw do
     resources :gastos, only: [:new, :create]  
     post 'agregar_usuarios', on: :member
     #post 'dividir_gastos', on: :member
+    collection do
+      get 'admin_grupos', to: 'grupos#admin_grupos'
+    end
   end
+
+  put '/usuarios/:id/block', to: 'usuarios#block_usuario', as: :block_usuario
+  put '/usuarios/:id/unblock', to: 'usuarios#unblock_usuario', as: :unblock_usuario
 
   #Agregado por AGUSTIN
   get 'grupos/:grupo_id/dividir_gastos', to: 'divisiones#show', as: 'dividir_gastos_grupo'
-
 
   root 'inicio#index'  # Establece la página de inicio
 end
