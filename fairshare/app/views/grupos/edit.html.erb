@@ -17,10 +17,11 @@
 
     <div class="form-group">
       <%= form.label :usuarios, "Usuarios del Grupo", class: 'form-label' %>
-      <% Usuario.all.each do |usuario| %>
+      <% Usuario.where.not(id: @grupo.created_by).each do |usuario| %>
+        <% next if usuario.admin? %>
         <div class="form-check">
-          <%= check_box_tag 'grupo[usuario_ids][]', usuario.id, @grupo.usuarios.include?(usuario), class: 'form-check-input' %>
-          <%= label_tag "grupo_usuario_ids_#{usuario.id}", usuario.nombre, class: 'form-check-label' %>
+          <%= check_box_tag 'grupo[id_usuarios][]', usuario.id, @usuarios_grupo.include?(usuario), id: "usuario_#{usuario.id}", class: 'form-check-input' %>
+          <%= form.label "usuario_#{usuario.id}", usuario.nombre, class: 'form-check-label' %>
         </div>
       <% end %>
     </div>
