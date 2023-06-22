@@ -62,38 +62,36 @@ class GruposController < ApplicationController
     end
   end
   
- 
-  
   def modificar_usuarios(usuario_ids)
-    # Busco usuarios q ya esten asociados al grupo
+    # Busco usuarios que ya estén asociados al grupo
     existing_users = @grupo.usuarios.to_a
   
-    # Saco a todos los usuarios que no esten seleccionados del grupo
+    # Saco a todos los usuarios que no estén seleccionados del grupo
     unchecked_users = existing_users.reject { |usuario| usuario_ids.include?(usuario.id.to_s) }
     @grupo.usuarios.destroy(*unchecked_users) if unchecked_users.present?
   
     usuario_ids.each do |usuario_id|
       usuario = Usuario.find(usuario_id)
   
-      # Si no estan asociados, agrego usuarios al grupo
+      # Si no están asociados, agrego usuarios al grupo
       @grupo.usuarios << usuario unless existing_users.include?(usuario)
     end
   
-    # Agrega el usuario que crea el grupo (que siempre va a estar unchecked porque no aparece en la lista)
-    @grupo.usuarios << current_user
+    # Agrega el usuario que crea el grupo si no está ya incluido, no es un admin y no es el mismo usuario que está modificando
+    #unless existing_users.include?(current_user) || (current_user.admin? && current_user != @grupo.created_by)
+      #@grupo.usuarios << current_user
+      @grupo.usuarios << Usuario.find(@grupo.created_by)
+    #end
   end
+  
+  
+  
+
   
   def admin_grupos
     @grupos = Grupo.all
   end
     
-  #def destroy
-    #if @grupo.gastos.destroy_all && @grupo.destroy      
-      #redirect_to grupos_path, notice: 'Grupo eliminado exitosamente.'
-    #else
-      #redirect_to @grupo, alert: 'El grupo no pudo ser eliminado.'
-    #end
-  #end
 
   def destroy
     @grupo = Grupo.find(params[:id])
@@ -111,6 +109,18 @@ class GruposController < ApplicationController
     end
   end
 
+  #def destroy
+  #  @grupo = Grupo.find(params[:id])
+  
+  #  if admin_user?
+  #    @grupo.gastos.destroy_all
+  #    @grupo.destroy
+  #    redirect_to grupos_path, notice: "Group and expenses were successfully deleted."
+  #  else
+   #   redirect_to grupos_path, alert: "You are not authorized to perform this action."
+   # end
+  #end
+
   def gasto_total_usuario(usuario)
     usuario.gastos.sum(:monto)
   end
@@ -126,9 +136,9 @@ class GruposController < ApplicationController
     current_user.admin?
   end
 
-  def grupo_creator?
-    @grupo.creator == current_user
-  end
+  #def grupo_creator?
+  #  @grupo.creator == current_user
+  #send
 
   def grupo_creator?
     @grupo.created_by == current_user.id
