@@ -29,9 +29,16 @@
           
           <p><strong>Gastos totales:</strong> $<%= @grupo.gastos.sum(:monto) %></p>
           
-          <div class="form-actions">
+         
+
+         <div class="form-actions">
+          <% if current_user.admin? %>
+            <%= link_to 'Volver', admin_grupos_grupos_path, class: 'btn btn-dark btn-sm' %>
+          <% else %>
             <%= link_to 'Volver', grupos_path, class: 'btn btn-dark btn-sm' %>
-          </div>
+          <% end %>
+        </div>
+
         </div>
       </div>
     </div>

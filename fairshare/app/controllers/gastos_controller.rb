@@ -10,18 +10,34 @@ class GastosController < ApplicationController
     @gasto = @grupo.gastos.build
   end
 
-  def create
-    @gasto = @grupo.gastos.build(gasto_params)
-    @gasto.usuario_id = current_user.id
-    @gasto.grupo_id = @grupo.id
+  #def create
+  #  @gasto = @grupo.gastos.build(gasto_params)
+  #  @gasto.usuario_id = current_user.id
+  #  @gasto.grupo_id = @grupo.id
 
+  #  if @gasto.save
+  #    flash[:notice] = 'Gasto agregado.'
+  #    redirect_to @grupo
+  #  else
+  #    render :new
+  #  end
+  #end
+
+  #Para que el creador del grupo pueda asignar gastos a cada persona
+  #(El unico problema es que no los puede editar, solo puede eliminar los suyos)
+  def create
+    @grupo = Grupo.find(params[:grupo_id])
+    @gasto = @grupo.gastos.build(gasto_params)
+    @gasto.usuario_id = params[:gasto][:usuario_id] 
+  
     if @gasto.save
-      flash[:notice] = 'Gasto agregado.'
-      redirect_to @grupo
+      redirect_to @grupo, notice: 'Gasto agregado exitosamente.'
     else
       render :new
     end
   end
+  
+  
 
   def destroy
     @gasto = Gasto.find(params[:id])

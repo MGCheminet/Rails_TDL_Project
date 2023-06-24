@@ -14,7 +14,13 @@
       <%= form.label :fecha %>
       <%= form.date_field :fecha, class: 'form-control' %>
     </div>
+    <!-- Para asignar el gasto a un usuario del grupo-->
+    <div class="form-group">
+      <%= form.label :usuario_id, "Usuario" %>
+      <%= form.collection_select :usuario_id, @grupo.usuarios, :id, :nombre, class: 'form-control' %>
+    </div> 
     <%= form.submit 'Agregar Gasto', class: 'btn btn-primary' %>
     <%= link_to 'Cancelar', grupos_path, class: 'btn btn-warning' %>
   <% end %>
 </div>
+
