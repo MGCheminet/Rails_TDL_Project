@@ -96,6 +96,7 @@ class GruposController < ApplicationController
   def destroy
     @grupo = Grupo.find(params[:id])
     if admin_user? || grupo_creator?
+      @grupo.gastos.destroy_all
       @grupo.destroy
       flash[:notice] = 'Grupo eliminado correctamente.'
       if admin_user?
