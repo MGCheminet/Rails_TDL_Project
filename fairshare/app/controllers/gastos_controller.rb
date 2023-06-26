@@ -5,10 +5,24 @@ class GastosController < ApplicationController
     @gastos = Gasto.where(usuario_id: current_user.id)
   end
   
+  def edit
+    @gasto = Gasto.find(params[:id])
+  end
 
   def new
     @gasto = @grupo.gastos.build
   end
+
+  def update
+    @gasto = Gasto.find(params[:id])
+  
+    if @gasto.update(gasto_params)
+      redirect_to mis_gastos_path(id: cookies.signed[:usuario_id]), notice: 'El gasto fue actualizado correctamente.'
+    else
+      render :edit
+    end
+  end
+  
 
   #def create
   #  @gasto = @grupo.gastos.build(gasto_params)

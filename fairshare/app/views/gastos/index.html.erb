@@ -6,22 +6,26 @@
       <% @gastos.each do |gasto| %>
         <div class="card mb-3">
           <div class="card-body">
-          <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <h5 class="card-title">Monto: $<%= gasto.monto %></h5>
-            <strong>Grupo:</strong> <%= gasto.grupo.nombre %>
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <h5 class="card-title">Monto: $<%= gasto.monto %></h5>
+                <strong>Grupo:</strong> <%= gasto.grupo.nombre %>
+              </div>
+              <p class="card-text">
+                <strong>Descripción:</strong> <%= gasto.descripcion %><br>
+                <strong>Fecha:</strong> <%= gasto.fecha %>
+              </p>
+              <div class="float-end">
+                <%= link_to 'Editar', edit_gasto_path(gasto), class: 'btn btn-primary btn-sm me-2' %>
+                <%= form_with(model: gasto, url: gasto_path(gasto), data: { confirm: "¿Estás seguro de que deseas eliminar este gasto?" }, method: :delete, class: 'd-inline') do |form| %> 
+                  <%= form.submit "Eliminar", class: 'btn btn-danger btn-sm' %> 
+                <% end %>
+              </div>
+            </div>
           </div>
-            <p class="card-text">
-            <strong>Descripción:</strong> <%= gasto.descripcion %><br>
-            <strong>Fecha:</strong> <%= gasto.fecha %>
-            </p>
-            <%= form_with(model: gasto, url: gasto_path(gasto), data: { confirm: "¿Está seguro de que desea eliminar este gasto?" }, method: :delete, class: 'd-inline float-end') do |form| %> 
-              <%= form.submit "Eliminar", class: 'btn btn-danger btn-sm' %> 
-            <% end %>
-          </div>
-        </div>
         </div>
       <% end %>
+
 
       <% if @gastos.empty? %>
         <p class="text-center">No tenés gastos registrados.</p>

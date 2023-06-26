@@ -22,29 +22,29 @@
               <% @usuarios_grupo.each do |usuario| %>
                 <tr>
                   <td><%= usuario.nombre %></td>
-                  <td>$ <%= usuario.gasto_total_en_grupo(@grupo) %></td>
-                  <td>$ <%= @debe_recibe[usuario.id][:debe] %></td>
-                  <td>$ <%= @debe_recibe[usuario.id][:recibe] %></td>
+                  <td>$ <%= number_with_precision(usuario.gasto_total_en_grupo(@grupo), precision: 2) %></td>
+                  <td>$ <%= number_with_precision(@debe_recibe[usuario.id][:debe], precision: 2) %></td>
+                  <td>$ <%= number_with_precision(@debe_recibe[usuario.id][:recibe], precision: 2) %></td>
                 </tr>
               <% end %>
             </tbody>
-            
-            </table>
-            <p><strong>Gastos totales:</strong> $<%= @grupo.gastos.sum(:monto) %></p>
+          </table>
           
-            <div class="form-actions">
-              <% if current_user.admin? %>
-                <%= link_to "Volver", admin_grupos_grupos_path, class: 'btn btn-dark btn-sm' %>
-              <% else %>
-                <%= link_to "Volver", grupos_path, class: 'btn btn-dark btn-sm' %>
+          <p><strong>Gastos totales:</strong> $<%= number_with_precision(@grupo.gastos.sum(:monto), precision: 2) %></p>
+          
+          <div class="form-actions">
+            <% if current_user.admin? %>
+              <%= link_to "Volver", admin_grupos_grupos_path, class: 'btn btn-dark btn-sm' %>
+            <% else %>
+              <%= link_to "Volver", grupos_path, class: 'btn btn-dark btn-sm' %>
             <% end %>
-            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 
 
 
