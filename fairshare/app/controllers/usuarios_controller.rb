@@ -21,10 +21,10 @@ class UsuariosController < ApplicationController
       render action: "new"
     elsif @usuario.save
       flash[:notice] = 'Creación de usuario exitosa.'
-      redirect_to index_home_path
+      admin_user? ? redirect_to(index_home_path) : redirect_to(login_path)
     else
       @usuario.errors.add(:base, 'Mensaje de error')
-      flash.now[:alert] = 'Error al crear el usuario. Por favor, corrige los siguientes errores:'
+      flash.now[:alert] = 'Error al crear el usuario. Las contraseñas no son idénticas.'
       render action: "new"
     end
   end

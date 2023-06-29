@@ -17,8 +17,8 @@
                 <% if cookies.signed[:usuario_id] %>
                   <a class="dropdown-item" href="<%= perfil_path(cookies.signed[:usuario_id]) %>">Mis datos</a>
                   <a class="dropdown-item" href="<%= mis_gastos_path(id: cookies.signed[:usuario_id]) %>">Gastos</a>
-                  <a class="dropdown-item" href="<%= logout_path %>" method="delete" rel="nofollow">Salir</a>
                 <% end %>
+                <a class="dropdown-item" href="<%= logout_path %>" method="delete" rel="nofollow">Salir</a>
               </div>
             </div>
           </li>

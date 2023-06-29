@@ -1,32 +1,39 @@
-<h1>Lista de Usuarios</h1>
-
-<ul class="list-group">
-  <% @usuarios.each do |usuario| %>
-    <% unless usuario.deleted? || usuario.admin? %>
-      <li class="list-group-item">
-        <%= usuario.nombre %>
-        <div class="btn-group float-right" role="group" aria-label="Acciones">
-          <% if usuario.blocked? %>
-            <%= form_with(model: usuario, url: unblock_usuario_path(usuario), method: :put, data: { confirm: "¿Está seguro de que desea desbloquear este usuario?" }) do |form| %>
-              <%= form.button "Desbloquear", class: 'btn btn-success btn-sm' %>
-            <% end %>
-          <% else %>
-            <%= form_with(model: usuario, url: block_usuario_path(usuario), method: :put, data: { confirm: "¿Está seguro de que desea bloquear este usuario?" }) do |form| %>
-              <%= form.button "Bloquear", class: 'btn btn-warning btn-sm' %>
-            <% end %>
+<div class="container">
+  <h1 class="text-center">Lista de Usuarios</h1>
+  <div class="row">
+    <div class="col-12">
+      <ul class="list-group">
+        <% @usuarios.each do |usuario| %>
+          <% unless usuario.deleted? || usuario.admin? %>
+            <li class="list-group-item">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <span class="bullet-point">&#8226;</span> <%= usuario.nombre %>
+                </div>
+                <div>
+                  <%= link_to 'Ver detalles', usuario_path(usuario), class: 'btn btn-primary btn-sm me-2' %>
+                    <% if usuario.blocked? %>
+                      <%= form_with(model: usuario, url: unblock_usuario_path(usuario), method: :put, data: { confirm: "¿Está seguro de que desea desbloquear este usuario?" },  class: 'd-inline') do |form| %>
+                        <%= form.button "Desbloquear", class: 'btn btn-success btn-sm ' %>
+                        <% end %>
+                    <% else %>
+                      <%= form_with(model: usuario, url: block_usuario_path(usuario), method: :put, data: { confirm: "¿Está seguro de que desea bloquear este usuario?" },  class: 'd-inline') do |form| %>
+                        <%= form.button "Bloquear", class: 'btn btn-warning btn-sm me-2' %>
+                      <% end %>
+                    <% end %>
+                    <%= form_with(model: usuario, url: usuario_path(usuario), data: { confirm: "¿Está seguro de que desea eliminar este usuario?" }, method: :delete,  class: 'd-inline') do |form| %>
+                      <%= form.submit "Eliminar", class: 'btn btn-danger btn-sm me-2' %>
+                    <% end %>
+                </div>
+              </div>
+            </li>
           <% end %>
-          <%= link_to 'Ver detalles', usuario_path(usuario), class: 'btn btn-primary btn-sm' %>
-          <%= form_with(model: usuario, url: usuario_path(usuario), data: { confirm: "¿Está seguro de que desea eliminar este usuario?" }, method: :delete) do |form| %>
-            <%= form.submit "Eliminar", class: 'btn btn-danger btn-sm' %>
-          <% end %>
-        </div>
-      </li>
-    <% end %>
-  <% end %>
-</ul>
+        <% end %>
+      </u1>
+    </div>
+  </div>
 
-<%= link_to 'Volver', index_home_path, class: 'btn btn-dark btn-sm mt-3' %>
-
-
+  <%= link_to 'Volver', index_home_path, class: 'btn btn-dark btn-sm mt-3' %>
+</div>
 
 
