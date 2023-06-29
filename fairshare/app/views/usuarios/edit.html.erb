@@ -20,9 +20,11 @@
     </div>
     <div class="form-actions">
       <%= form.submit "Actualizar", class: 'btn btn-primary' %>
-      <%= link_to 'Cancelar', perfil_path(cookies.signed[:usuario_id]), class: 'btn btn-secondary' %>
-      <%= button_to 'Eliminar Usuario', delete_self_usuario_path(@usuario), method: :delete, data: { confirm: '¿Estás seguro de eliminar tu cuenta en Fairshare?' }, class: 'btn btn-danger' %>      
+      <%= link_to 'Cancelar', perfil_path(cookies.signed[:usuario_id]), class: 'btn btn-secondary' %>  
     </div>
+  <% end %>
+  <%= form_with(model: @usuario, url: usuario_path(@usuario), data: { confirm: "¿Está seguro de que desea eliminar este usuario?" }, method: :delete, class: 'form-actions mt-3') do |form| %>
+    <%= form.submit "Eliminar", class: 'btn btn-danger' %>
   <% end %>
 </div>
 
