@@ -29,7 +29,7 @@ class SesionesController < ApplicationController
             end
         else
             flash.now[:alert] = "El correo electrónico o la contraseña son incorrectos."
-            render:new
+            render :new
         end
     end
 
