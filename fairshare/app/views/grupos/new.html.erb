@@ -1,41 +1,35 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <div class="card">
-        <div class="card-body">
-          <h1 class="card-title">Nuevo Grupo</h1>
+<h2 class="text-left">Nuevo Grupo</h2>
 
-          <%= form_with(model: @grupo, url: grupos_path, class: 'grupo-form') do |form| %>
-            <div class="form-group">
-              <%= form.label :nombre %>
-              <%= form.text_field :nombre, class: 'form-control' %>
-            </div>
-
-            <div class="form-group">
-              <%= form.label :descripcion %>
-              <%= form.text_field :descripcion, class: 'form-control' %>
-            </div>
-
-            <div class="form-group">
-              <%= form.label :usuarios, "Agregar contactos" %>
-              <% @usuarios.where.not(admin: true).each do |usuario| %>
-                <div class="form-check">
-                  <%= check_box_tag 'grupo[id_usuarios][]', usuario.id, false, id: "usuario_#{usuario.id}", class: 'form-check-input' %>
-                  <%= form.label "usuario_#{usuario.id}", usuario.nombre, class: 'form-check-label' %>
-                </div>
-              <% end %>
-            </div>
-
-
-            <div class="form-actions">
-              <%= form.submit 'Crear Grupo', class: 'btn btn-primary' %>
-              <%= link_to 'Cancelar', index_home_path, class: 'btn btn-warning' %>
-            </div>
-          <% end %>
-        </div>
-      </div>
+  <%= form_with(model: @grupo, url: grupos_path, class: 'form-container') do |form| %>
+    <div class="form-group">
+      <%= form.label :nombre %>
+      <%= form.text_field :nombre, class: 'form-control' %>
     </div>
-  </div>
+
+    <div class="form-group">
+      <%= form.label :descripcion %>
+      <%= form.text_field :descripcion, class: 'form-control' %>
+    </div>
+
+    <div class="form-group scrollable-checkboxes">
+      <%= form.label :usuarios, "Agregar contactos" %>
+      <% @usuarios.where.not(admin: true).each do |usuario| %>
+        <div class="form-check">
+          <%= check_box_tag 'grupo[id_usuarios][]', usuario.id, false, id: "usuario_#{usuario.id}", class: 'form-check-input' %>
+          <%= form.label "usuario_#{usuario.id}", usuario.nombre, class: 'form-check-label' %>
+        </div>
+      <% end %>
+    </div>
+
+    
+
+
+    <div class="form-actions">
+      <%= form.submit 'Crear Grupo', class: 'btn btn-primary' %>
+      <%= link_to 'Cancelar', index_home_path, class: 'btn btn-secondary' %>
+    </div>
+  <% end %>
 </div>
  <%= render 'layouts/messages' %>
 

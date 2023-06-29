@@ -20,7 +20,7 @@ class SesionesController < ApplicationController
 
         if usuario && usuario.authenticate(params[:password])
             if usuario.blocked?
-            flash[:alert] = "Tu cuenta está bloqueada. Contacta al administrador."
+            flash[:alert] = "Tu cuenta está bloqueada. Contactá al administrador."
             redirect_to login_path
             else
             # Log in the user
@@ -29,7 +29,7 @@ class SesionesController < ApplicationController
             end
         else
             flash.now[:alert] = "El correo electrónico o la contraseña son incorrectos."
-            render :new
+            render:new
         end
     end
 

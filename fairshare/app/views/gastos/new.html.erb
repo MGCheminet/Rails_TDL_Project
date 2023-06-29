@@ -15,12 +15,16 @@
       <%= form.date_field :fecha, class: 'form-control' %>
     </div>
     <!-- Para asignar el gasto a un usuario del grupo-->
+
     <div class="form-group">
       <%= form.label :usuario_id, "Usuario" %>
-      <%= form.collection_select :usuario_id, @grupo.usuarios, :id, :nombre, class: 'form-control' %>
-    </div> 
-    <%= form.submit 'Agregar Gasto', class: 'btn btn-primary' %>
-    <%= link_to 'Cancelar', grupos_path, class: 'btn btn-warning' %>
+      <div style="max-height: 200px; overflow-y: auto;">
+        <%= form.collection_select :usuario_id, @grupo.usuarios, :id, :nombre, { prompt: 'Seleccionar' }, class: 'form-control' %>
+      </div>
+    </div>
+
+      <%= form.submit 'Agregar Gasto', class: 'btn btn-primary' %>
+      <%= link_to 'Cancelar', grupos_path, class: 'btn btn-secondary' %>
   <% end %>
 </div>
 

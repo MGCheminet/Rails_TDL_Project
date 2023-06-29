@@ -152,3 +152,8 @@
 select.form-control[multiple] {
   height: 150px;
 }
+
+.scrollable-checkboxes {
+  max-height: 200px; /* Ajusta la altura máxima según tus necesidades */
+  overflow-y: scroll; /* Agrega una barra de desplazamiento vertical */
+}

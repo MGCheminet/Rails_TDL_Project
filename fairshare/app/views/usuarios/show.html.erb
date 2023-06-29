@@ -7,8 +7,10 @@
           <p><strong>Email:</strong> <%= @usuario.email %></p>
           <p><strong>Nombre:</strong> <%= @usuario.nombre %></p>
           
-          <%= link_to 'Configurar', edit_usuario_path(@usuario), class: 'btn btn-primary' %>
-          <%= link_to 'Volver', index_home_path, class: 'btn btn-dark' %>
+          <div class="form-actions">
+            <%= link_to 'Configurar', edit_usuario_path(@usuario), class: 'btn btn-primary' %>
+            <%= link_to 'Volver', index_home_path, class: 'btn btn-dark' %>
+          </div>
         </div>
       </div>
     </div>

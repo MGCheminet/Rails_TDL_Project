@@ -1,20 +1,20 @@
-<h1 class="text-center">Editar Gasto</h1>
-
 <div class="container">
-  <%= form_with(model: @gasto, url: gasto_path(@gasto), method: :patch) do |form| %>
-    <div class="mb-3">
-      <%= form.label :monto, class: "form-label" %>
-      <%= form.text_field :monto, class: "form-control" %>
+  <h2 class="text-left">Editar Gasto</h2>
+
+  <%= form_with(model: @gasto, url: gasto_path(@gasto), class: 'form-container', method: :patch) do |form| %>
+    <div class="form-group">
+    <%= form.label :monto, class: "form-label" %>
+    <%= form.text_field :monto, class: "form-control" %>
     </div>
-    <div class="mb-3">
-      <%= form.label :descripcion, class: "form-label" %>
-      <%= form.text_field :descripcion, class: "form-control" %>
+    <div class="form-group">
+    <%= form.label :descripcion, class: "form-label" %>
+    <%= form.text_field :descripcion, class: "form-control" %>
     </div>
-    <div class="mb-3">
+    <div class="form-group">
       <%= form.label :fecha, class: "form-label" %>
       <%= form.date_field :fecha, class: "form-control" %>
     </div>
-    <div class="text-center">
+    <div class="form-actions">
       <%= form.submit "Guardar cambios", class: "btn btn-primary" %>
       <%= link_to "Cancelar", :back, class: "btn btn-secondary" %>
     </div>
