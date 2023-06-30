@@ -23,7 +23,7 @@
       <%= link_to 'Cancelar', perfil_path(cookies.signed[:usuario_id]), class: 'btn btn-secondary' %>  
     </div>
   <% end %>
-  <%= form_with(model: @usuario, url: usuario_path(@usuario), data: { confirm: "¿Está seguro de que desea eliminar este usuario?" }, method: :delete, class: 'form-actions mt-3') do |form| %>
+  <%= form_with(model: @usuario, url: usuario_path(@usuario), data: { confirm: "¿Está seguro de que desea eliminar este usuario?" }, method: :delete, class: 'form-group mt-3') do |form| %>
     <%= form.submit "Eliminar", class: 'btn btn-danger' %>
   <% end %>
 </div>
