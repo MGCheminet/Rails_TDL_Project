@@ -53,16 +53,8 @@ class UsuariosController < ApplicationController
     if @usuario.admin?
       redirect_to index_home_url, notice: 'No se puede eliminar al usuario administrador.'
     else
-      # Delete associated gastos
-      @usuario.gastos.destroy_all
   
-      # Delete associated grupos where the usuario is the creator
-      Grupo.where(created_by: @usuario.id).each do |grupo|
-        grupo.gastos.destroy_all
-        grupo.destroy
-      end
-  
-      # Destroy the usuario
+      # Eliminar usuario
       @usuario.destroy
   
       if admin_user?
@@ -73,9 +65,6 @@ class UsuariosController < ApplicationController
       end
     end
   end
-  
-  
-
 
 
   def delete_self
