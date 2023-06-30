@@ -49,21 +49,32 @@ class UsuariosController < ApplicationController
 
   def destroy
     @usuario = Usuario.find(params[:id])
+  
     if @usuario.admin?
-      #flash[:alert] = 'No se puede eliminar al usuario administrador.'
       redirect_to index_home_url, notice: 'No se puede eliminar al usuario administrador.'
     else
+      # Delete associated gastos
+      @usuario.gastos.destroy_all
+  
+      # Delete associated grupos where the usuario is the creator
+      Grupo.where(created_by: @usuario.id).each do |grupo|
+        grupo.gastos.destroy_all
+        grupo.destroy
+      end
+  
+      # Destroy the usuario
       @usuario.destroy
+  
       if admin_user?
-        #flash[:notice] = 'Usuario eliminado correctamente.'
         redirect_to usuarios_path, notice: 'Usuario eliminado correctamente.'
       else
         session[:usuario_id] = nil
-        #flash[:notice] = 'Tu cuenta ha sido eliminada correctamente.'
         redirect_to root_url, notice: 'Tu cuenta ha sido eliminada correctamente.'
       end
     end
   end
+  
+  
 
 
 
