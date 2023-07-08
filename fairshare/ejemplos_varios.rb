@@ -51,6 +51,7 @@ end
 
 #Ejemplo de Atomicidad, manejo de errores y excepciones: create de usuarios_controller.rb
 def create
+<<<<<<< HEAD
   @usuario = Usuario.new(usuario_params)
 
   ActiveRecord::Base.transaction do
@@ -69,6 +70,24 @@ def create
     flash.now[:alert] = @usuario.errors.full_messages.join(' ')
     render action: "new"
   end
+=======
+    ActiveRecord::Base.transaction do
+      @usuario = Usuario.new(usuario_params)
+  
+      if Usuario.exists?(email: @usuario.email)
+        raise ActiveRecord::Rollback, 'El correo electrónico ya está registrado.'
+      elsif @usuario.save
+        flash[:notice] = 'Creación de usuario exitosa.'
+        admin_user? ? redirect_to(index_home_path) : redirect_to(login_path)
+      else
+        raise ActiveRecord::Rollback, 'Error al crear el usuario. Las contraseñas no son idénticas.'
+      end
+    end
+  
+    rescue ActiveRecord::Rollback => e
+      flash.now[:alert] = e.message
+      render action: "new"
+>>>>>>> 9fe4508bb75e9552ad722c583b2b4abdc9773b60
 end
   
 #Ejemplo de Metaprogramación
@@ -84,6 +103,7 @@ class User < ApplicationRecord
     end
   end
 
+<<<<<<< HEAD
 
 #Modificación de User para usar metaprogramación
 ["admin", "blocked"].each do |attribute|
@@ -92,6 +112,8 @@ class User < ApplicationRecord
   end
 end
 
+=======
+>>>>>>> 9fe4508bb75e9552ad722c583b2b4abdc9773b60
 #Ejemplo de Programación Procedural: CRUD para usuarios
 #La programación procedural se enfoca en una secuencia de instrucciones 
 #para realizar una tarea. Aunque Rails está diseñado en gran medida para 
@@ -170,5 +192,9 @@ class UsersController < ApplicationController
 #instrucciones para realizar las operaciones CRUD (crear, leer, actualizar, eliminar) en el modelo User.
 #Si bien este ejemplo sigue utilizando los conceptos y estructuras de un 
 #proyecto de Rails, se puede ver una aproximación más procedural en el flujo 
+<<<<<<< HEAD
 #de ejecución de las acciones y en la forma en que se manipulan los datos del modelo.
 
+=======
+#de ejecución de las acciones y en la forma en que se manipulan los datos del modelo.
+>>>>>>> 9fe4508bb75e9552ad722c583b2b4abdc9773b60
