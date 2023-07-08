@@ -16,17 +16,28 @@ class UsuariosController < ApplicationController
   def create
     @usuario = Usuario.new(usuario_params)
 
-    if Usuario.exists?(email: @usuario.email)
-      flash.now[:alert] = 'El correo electrónico ya está registrado.'
-      render action: "new"
-    elsif @usuario.save
-      flash[:notice] = 'Creación de usuario exitosa.'
-      admin_user? ? redirect_to(index_home_path) : redirect_to(login_path)
-    else
-      @usuario.errors.add(:base, 'Mensaje de error')
-      flash.now[:alert] = 'Error al crear el usuario. Las contraseñas no son idénticas.'
-      render action: "new"
+    ActiveRecord::Base.transaction do
+      if Usuario.exists?(email: @usuario.email)
+        @usuario.errors.add(:email, 'El correo electrónico ya está registrado.')
+      #flash.now[:alert] = 'El correo electrónico ya está registrado.'
+      #render action: "new"
+      raise ActiveRecord::Rollback
+      elsif @usuario.save
+        flash[:notice] = 'Creación de usuario exitosa.'
+        admin_user? ? redirect_to(index_home_path) : redirect_to(login_path)
+      else
+        #@usuario.errors.add(:base, 'Mensaje de error')
+        #flash.now[:alert] = 'Error al crear el usuario. Las contraseñas no son idénticas.'
+        #render action: "new"
+        raise ActiveRecord::Rollback
+      end
     end
+
+    if @usuario.errors.any?
+      flash.now[:alert] = @usuario.errors.full_messages.join(' ')
+      render action:"new"
+    end
+
   end
 
 

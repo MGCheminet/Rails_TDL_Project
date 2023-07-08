@@ -1,0 +1,12 @@
+es:
+  activerecord:
+    errors:
+      models:
+        usuario:
+          attributes:
+            email:
+              taken: "El correo electrónico ya está registrado."
+            password_confirmation:
+              confirmation: "Las contraseñas no coinciden."
+            password:
+              blank: "La(s) contraseña(s) no pueden estar en blanco."

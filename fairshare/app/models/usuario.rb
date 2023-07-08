@@ -12,13 +12,13 @@ class Usuario < ApplicationRecord
   def gasto_total_en_grupo(grupo)
     gastos.where(grupo_id: grupo.id).sum(:monto)
   end
-  
-  def admin?
-    admin # Assuming `admin` is a boolean attribute in the User model
+
+
+  ["admin", "blocked"].each do |attribute|
+    define_method "#{attribute}?" do
+      send(attribute)
+    end
   end
 
-  def blocked?
-    blocked
-  end
-  
+
 end
