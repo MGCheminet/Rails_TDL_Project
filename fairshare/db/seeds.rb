@@ -8,3 +8,5 @@
 
 admin_user = Usuario.new(nombre: 'admin', password: 'password', email: 'admin@example.com', admin: true)
 admin_user.save
+
+p "Usuario administrador creado"
