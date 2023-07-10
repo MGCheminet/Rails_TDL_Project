@@ -10,5 +10,5 @@ Para correr el proyecto es necesario seguir los siguientes pasos:
 1. Configurar la contraseña personal de PGAdmin (password) en `config/database.yml`
 2. Correr en la terminal el comando `rails db:create` para crear la base de datos 
 3. Ejecutar `rails db:migrate` para realizar todas las migraciones de tablas a crear
-4. Ejecutar el comando `rails db:seed` para crear un usuario administrador
+4. Ejecutar el comando `rails db:seed` para crear un usuario administrador (mail: admin@example.com, password: password)
   
